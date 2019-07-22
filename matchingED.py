@@ -67,8 +67,6 @@ def solve(matchingFolder,jsonDir):
 		else: print(file[9:],ans)
 
 def main():
-	# import pdb
-	# pdb.set_trace()
 	matchingFolder='matching/*pdf'
 	jsonDir='template/*json'
 	solve(matchingFolder,jsonDir)
