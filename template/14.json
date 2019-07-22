@@ -1,0 +1,124 @@
+{
+        "SHIPPER": {
+            "row": [1, 4],
+            "column": [13, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "CNEE",
+                "left": "SHIPPER",
+                "right": -1
+            }
+        },
+        "CNEE": {
+            "row": [4, 8],
+            "column": [13, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "NOTIFY",
+                "left": "CNEE",
+                "right": -1
+            }
+        },
+        "NOTIFY": {
+            "row": [8, 9],
+            "column": [13, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "VESSEL",
+                "left": "NOTIFY",
+                "right": -1
+            }
+        },
+        "VESSEL": {
+            "row": [9, 10],
+            "column": [13, 54],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "POL",
+                "left": "VESSEL",
+                "right": -1
+            }
+        },
+        "ETD": {
+            "row": [9, 10],
+            "column": [66, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "POD",
+                "left": "ETD",
+                "right": -1
+            }
+        },
+        "POL": {
+            "row": [10, 11],
+            "column": [13, 54],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "O/F",
+                "left": "POL",
+                "right": -1
+            }
+        },
+        
+        "POD": {
+            "row": [10, 11],
+            "column": [66, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "O/F",
+                "left": "POD",
+                "right": -1
+            }
+        },
+        "O/F": {
+            "row": [11, 12],
+            "column": [13, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "CONT/SEAL.",
+                "left": "O/F",
+                "right": -1
+            }
+        },
+        "CONT/SEAL.": {
+            "row": [12, 13],
+            "column": [13, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "Q'TY",
+                "left": "CONT/SEAL.",
+                "right": -1
+            }
+        },
+        "Q'TY": {
+            "row": [13, 15],
+            "column": [13, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": "COMMODITY",
+                "left": "Q'TY",
+                "right": -1
+            }
+        },
+        "COMMODITY": {
+            "row": [15, 20],
+            "column": [13, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "same_left",
+                "bottom": -1,
+                "left": "COMMODITY",
+                "right": -1
+            }
+        }
+}

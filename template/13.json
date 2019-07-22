@@ -1,0 +1,207 @@
+{
+    "SHIPPER": {
+            "row": [1, 2],
+            "column": [5, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "Shipper",
+                "bottom": "Consignee",
+                "left": -1,
+                "right": -1
+            }
+    },
+
+    "CONSIGNEE": {
+            "row": [4, 6],
+            "column": [4, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "Vessel",
+                "bottom": "Port of discharge",
+                "left": -1,
+                "right": "Port of loading"
+            }
+    },
+
+    "NOTIFY PARTY": {
+            "row": [7, 8],
+            "column": [8, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "Port of loading",
+                "bottom": "Place of delivery",
+                "left": -1,
+                "right": "Also notify"
+            }
+    },    
+
+    "ALSO NOTIFY": {
+            "row": [10, 14],
+            "column": [0, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "Port of discharge",
+                "bottom": -1,
+                "left": -1,
+                "right": "Place of delivery"
+            }
+    },
+
+    "SAME AS CONSIGNEE": {
+            "row": [10, 14],
+            "column": [0, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "VessePlace of deliveryl",
+                "bottom": -1,
+                "left": -1,
+                "right": "Also notify"
+            }
+    },    
+
+
+    "PLACE OF RECEIPT": {
+            "row": [15, 20],
+            "column": [0, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "Forwarding agent - Name and full address",
+                "bottom": "Also notify",
+                "left": -1,
+                "right": -1
+            }
+    },
+
+    "PORT OF LOADING": {
+            "row": [15, 20],
+            "column": [0, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "Also notify",
+                "bottom": -1,
+                "left": -1,
+                "right": -1
+            }
+    },
+
+    "PRE-CARRIAGE BY": {
+            "row": [26, 27],
+            "column": [6, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "B/L to be released at",
+                "bottom": -1,
+                "left": "B/L to be released at",
+                "right": -1
+            }
+    },
+
+    "PORT OF DISCHARGE": {
+            "row": [15, 20],
+            "column": [0, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "MARKINGS",
+                "bottom": -1,
+                "left": -1,
+                "right": -1
+            }
+    },
+
+
+    "PLACE OF DELIVERY": {
+            "row": [21, 26],
+            "column": [0, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "CONTAINER/SEAL NO",
+                "bottom": "MARKINGS",
+                "left": -1,
+                "right": -1
+            }
+    },
+
+    "Vessel/VOYAGE": {
+            "row": [26, 27],
+            "column": [6, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "B/L to be released at",
+                "bottom": -1,
+                "left": "B/L to be released at",
+                "right": -1
+            }
+    },
+
+    "MARKS AND NUMBERS": {
+            "row": [26, 27],
+            "column": [6, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "B/L to be released at",
+                "bottom": -1,
+                "left": "B/L to be released at",
+                "right": -1
+            }
+    },            
+    
+    "NUMBER AND KIND OF PACKAGES": {
+            "row": [26, 27],
+            "column": [6, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "SHIPPED",
+                "bottom": -1,
+                "left": "SHIPPED",
+                "right": -1
+            }
+    },
+
+    "DESCRIPTION OF GOODS": {
+            "row": [26, 27],
+            "column": [6, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "SHIPPED",
+                "bottom": -1,
+                "left": "SHIPPED",
+                "right": -1
+            }
+    },
+
+    "GROSS WEIGHT": {
+            "row": [26, 27],
+            "column": [6, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "SHIPPED",
+                "bottom": -1,
+                "left": "SHIPPED",
+                "right": -1
+            }
+    },
+
+    "REMARK": {
+            "row": [26, 27],
+            "column": [6, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "SHIPPED",
+                "bottom": -1,
+                "left": "SHIPPED",
+                "right": -1
+            }
+    },
+
+    "PAYMENT": {
+            "row": [26, 27],
+            "column": [6, null],
+            "isFlex": 1,
+            "endObject": {
+                "top": "SHIPPED",
+                "bottom": -1,
+                "left": "SHIPPED",
+                "right": -1
+            }
+    }
+}
