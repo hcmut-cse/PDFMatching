@@ -210,8 +210,6 @@ def triggerWarning(path,file,template,configString,s,CONFIG,lineList):
 				break
 
 	lenLineList=len(lineList)
-	# import pdb
-	# pdb.set_trace()
 	if (not (len(missingKws) or len(mishandledKws))): return
 	startFilenamePos=len(path)
 	modifiedFile=path+'/warning'+file[startFilenamePos:]
