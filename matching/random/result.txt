@@ -1,7 +1,7 @@
 ##################################################
 RANDOM TESTING
 ------------------------------------
-CLTV01313280_SGNV12806700_1_ocps_si@opussmtp.one-line.com_1(ocps20190131120840_1)_1.pdf 2_6_12
-Warning: CLTV01313280_SGNV12806700_1_ocps_si@opussmtp.one-line.com_1(ocps20190131120840_1)_1.pdf doesn't fully match the template
+SGNV57088400_1_SI.pdf 7
+Warning: SGNV57088400_1_SI.pdf doesn't fully match the template
 ------------------------------------
 ##################################################

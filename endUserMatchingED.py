@@ -71,6 +71,20 @@ def getEditDistance(s0,s1):
 			else: dp[i][j]=1+min({dp[i-1][j],dp[i][j-1],dp[i-1][j-1]}) 
 	return dp[l0][l1]
 
+def getDamerauDistance(s0,s1):
+	l0=len(s0)
+	l1=len(s1)
+	dp=[[0 for j in range(l1+1)] for i in range(l0+1)]
+
+	for i in range(l0+1):
+		for j in range(l1+1):
+			if (i==0): dp[i][j]=j
+			elif (j==0): dp[i][j]=i
+			elif (s0[i-1]==s1[j-1]): dp[i][j]=dp[i-1][j-1]
+			else: dp[i][j]=1+min({dp[i-1][j],dp[i][j-1],dp[i-1][j-1]}) 
+			if (i>1 and j>1 and s0[i-1]==s1[j-2] and s0[i-2]==s1[j-1]): dp[i][j]=min(dp[i][j],dp[i-2][j-2]+1)
+	return dp[l0][l1]
+
 def fixScript(lineList):
 	l=len(lineList)
 	for i in range(l): lineList[i]=fixSpaceColonString(lineList[i])
@@ -140,6 +154,7 @@ def drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG):
 				y1=y0+targetSize*1.4
 				rect=fitz.Rect(x0,y0,x1,y1)
 				highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize-2, fontname="helv", color=(1, 0, 0), rotate=0)
+			# print(rect)
 	doc.save(modifiedFile,garbage=4,deflate=True,clean=False)
 	copyfile(modifiedFile,sourceFile)
 
@@ -208,7 +223,6 @@ def triggerWarning(path,file,template,configString,s,CONFIG,lineList):
 				mishandledKws.append(checkedKey)
 				checked[key]=checked[checkedKey]=1
 				break
-
 	lenLineList=len(lineList)
 	if (not (len(missingKws) or len(mishandledKws))): return
 	startFilenamePos=len(path)
@@ -275,10 +289,9 @@ def findTemplateBetaVersion(path,file,jsonDir):
 		lineList=fixScript(lineList)
 		for key in CONFIG: key=fixSpaceColonString(key)
 		configString=createStringList(CONFIG)
-
 		sList=createListOfStringLineList(CONFIG,lineList,configString)
 		for s in sList:
-			dis=getEditDistance(configString,s)
+			dis=getDamerauDistance(configString,s)
 			if (minDistance>dis): 
 				minDistance=dis
 				ans=jsonFile[9:-5]
