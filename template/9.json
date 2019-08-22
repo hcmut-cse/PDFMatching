@@ -20,6 +20,13 @@
 					"bottom": "SI BOOKING NO.",
 					"left": "Shipper",
 					"right": -1
+				},
+				"alias":
+				{
+					"alias_0":
+					{
+						"name": "SI booking"
+					}
 				}
 			},
 			"Consignee": {

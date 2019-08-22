@@ -52,19 +52,6 @@
 				"right": -1
 			}
 		},
-		"Consignee":
-		{
-			"row": [10, 17],
-			"column": [0, 58],
-			"isFlex": 1,
-			"endObject":
-			{
-				"top": "Consignee",
-				"bottom": "Notify",
-				"left": -1,
-				"right": "Booking Number"
-			}
-		},
 		"TEL":
 		{
 			"row": [8,9],
@@ -78,7 +65,19 @@
 				"right": -1
 			}
 		},
-
+		"Consignee":
+		{
+			"row": [10, 17],
+			"column": [0, 58],
+			"isFlex": 1,
+			"endObject":
+			{
+				"top": "Consignee",
+				"bottom": "Notify",
+				"left": -1,
+				"right": "Booking Number"
+			}
+		},
 		
 		"FAX":
 		{

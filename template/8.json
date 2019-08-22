@@ -319,6 +319,17 @@
 				"bottom": "TOTAL",
 				"left": "SEAL NO",
 				"right": "N.W(MTS)"
+			},
+			"alias":
+			{
+				"alias_0":
+				{
+					"name": "BIG BAGS"
+				},
+				"alias_1":
+				{
+					"name": "BAGS"
+				}
 			}
 		},
 

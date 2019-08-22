@@ -39,7 +39,14 @@
 				"bottom": "Notify",
 				"left": -1,
 				"right": -1
-			}
+			},
+			"alias":
+            {
+                "alias_0":
+                {
+                    "name": "CONSIGNEE"
+                }
+            }
 		},
 
 		"Notify":
@@ -53,7 +60,14 @@
 				"bottom": "Shipping Mark",
 				"left": -1,
 				"right": -1
-			}
+			},
+			"alias":
+            {
+                "alias_0":
+                {
+                    "name": "NOTIFY PARTY"
+                }
+            }
 		},
 
 		"Shipping Mark":
@@ -179,6 +193,13 @@
 				"bottom": "Freight Prepaid",
 				"left": "Gross Weight:",
 				"right": -1
+			},
+			"alias":
+			{
+				"alias_0":
+				{
+					"name": "Gross weight"
+				}
 			}
 		}
 	},

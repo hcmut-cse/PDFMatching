@@ -58,7 +58,13 @@ def createStringList(CONFIG):
 			checked[tmpKey]=1
 	return s
 
-def getEditDistance(s0,s1):
+def investigateAnalogy(a,b,aliasDict):
+	if (a==b): return 1
+	if (a in aliasDict[b]): return 1
+	if (b in aliasDict[a]): return 1
+	return 0
+
+def getEditDistance(s0,s1,aliasDict):
 	l0=len(s0)
 	l1=len(s1)
 	dp=[[0 for j in range(l1+1)] for i in range(l0+1)]
@@ -67,11 +73,11 @@ def getEditDistance(s0,s1):
 		for j in range(l1+1):
 			if (i==0): dp[i][j]=j
 			elif (j==0): dp[i][j]=i
-			elif (s0[i-1]==s1[j-1]): dp[i][j]=dp[i-1][j-1]
+			elif (investigateAnalogy(s0[i-1],s1[j-1],aliasDict)): dp[i][j]=dp[i-1][j-1]
 			else: dp[i][j]=1+min({dp[i-1][j],dp[i][j-1],dp[i-1][j-1]}) 
 	return dp[l0][l1]
 
-def getDamerauDistance(s0,s1):
+def getDamerauDistance(s0,s1,aliasDict):
 	l0=len(s0)
 	l1=len(s1)
 	dp=[[0 for j in range(l1+1)] for i in range(l0+1)]
@@ -80,9 +86,9 @@ def getDamerauDistance(s0,s1):
 		for j in range(l1+1):
 			if (i==0): dp[i][j]=j
 			elif (j==0): dp[i][j]=i
-			elif (s0[i-1]==s1[j-1]): dp[i][j]=dp[i-1][j-1]
+			elif (investigateAnalogy(s0[i-1],s1[j-1],aliasDict)): dp[i][j]=dp[i-1][j-1]
 			else: dp[i][j]=1+min({dp[i-1][j],dp[i][j-1],dp[i-1][j-1]}) 
-			if (i>1 and j>1 and s0[i-1]==s1[j-2] and s0[i-2]==s1[j-1]): dp[i][j]=min(dp[i][j],dp[i-2][j-2]+1)
+			if (i>1 and j>1 and investigateAnalogy(s0[i-1],s1[j-2],aliasDict) and investigateAnalogy(s0[i-2],s1[j-1],aliasDict)): dp[i][j]=min(dp[i][j],dp[i-2][j-2]+1)
 	return dp[l0][l1]
 
 def fixScript(lineList):
@@ -97,64 +103,97 @@ def getPDFSize(file):
 	height=box[3]
 	return width,height
 
-def drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG):
+def drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG,ans):
 	doc=fitz.open(sourceFile)
 	l=len(configString)
-	
 	# Search for first column in pdf
 	tmpPage=doc[0]
 	startColumn=tmpPage.searchFor(s[0])[0][0]
-
+	index=0
 	for page in doc:
-		targetSize=findFontSize(sourceFile,key)
-		i=configString.index(key)
-		latestKey=configString[0]
-		nextKey=configString[i]
-		for j in range(i-1,0,-1):
-			if (configString[j] in s): 
-				latestKey=configString[j]
-				break
-		for j in range(i+1,l):
-			if (configString[j] in s):
-				nextKey=configString[j]
-				break
-		if (nextKey.find('_')!=-1):
-			barPos=nextKey.find('_')
-			nextKey=nextKey[:barPos]
-		if (nextKey==key): nextKey=CONFIG[key]['endObject']['bottom']
-		if (not CONFIG[latestKey]['row'][1] or not CONFIG[latestKey]['row'][0]): numLines=1
-		else: numLines=CONFIG[latestKey]['row'][1]-CONFIG[latestKey]['row'][0]
-		if (not CONFIG[latestKey]['column'][1] or not CONFIG[latestKey]['column'][0]): width=1
-		else: width=CONFIG[latestKey]['column'][1]-CONFIG[latestKey]['column'][0]
-		latest_text_instances=page.searchFor(latestKey)
-		if (page.searchFor(nextKey)):
-			next_inst=page.searchFor(nextKey)[0]
-			if (latest_text_instances):
-				for inst in latest_text_instances:
-					if (inst[3]<next_inst[1]):
-						x0=inst[0]
-						y0=(inst[3]+targetSize*numLines)
-						if (CONFIG[latestKey]['row'][0]==CONFIG[key]['row'][0]): 
-							y0=inst[1]
+		noApproximation=0
+		# Warn based on other files
+		homogeneousPdfFiles=glob.glob('matching/random/'+ans+'/*pdf')
+		for file in homogeneousPdfFiles:
+			tmpDoc=fitz.open(file)
+			tmpPage=tmpDoc[index]
+			tmpLength=len(tmpPage.searchFor(key))
+			if (tmpLength):
+				targetFile=file
+				for pos in tmpPage.searchFor(key):
+					if (key=='Collect'):
+						if (len(tmpPage.searchFor('Freight Collect'))): 
+							FreightCollectPos=tmpPage.searchFor('Freight Collect')[0]
+							if (FreightCollectPos[1]==pos[1]): continue
+						if (len(tmpPage.searchFor('Total Collect'))): 
+							TotalCollectPos=tmpPage.searchFor('Total Collect')[0]
+							if (TotalCollectPos[1]==pos[1]): continue
+					targetPos=pos
+					noApproximation=1
+					break
+				if (noApproximation): break
+		if (noApproximation):
+			targetSize=findFontSize(targetFile,key)
+			x0=targetPos[0]	
+			y0=targetPos[1]	
+			x1=targetPos[2]+len(key)*4	
+			y1=targetPos[3]+targetSize/1.5
+			rect=fitz.Rect(x0,y0,x1,y1)
+			highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize, fontname="helv", color=(1, 0, 0), rotate=0)	
+			break
+		index+=1
+
+	if (not noApproximation):
+		for page in doc:
+			# Approximation
+			targetSize=findFontSize(sourceFile,key)
+			i=configString.index(key)
+			latestKey=configString[0]
+			nextKey=configString[i]
+			for j in range(i-1,0,-1):
+				if (configString[j] in s): 
+					latestKey=configString[j]
+					break
+			for j in range(i+1,l):
+				if (configString[j] in s):
+					nextKey=configString[j]
+					break
+			if (nextKey.find('_')!=-1):
+				barPos=nextKey.find('_')
+				nextKey=nextKey[:barPos]
+			if (nextKey==key): nextKey=CONFIG[key]['endObject']['bottom']
+			if (not CONFIG[latestKey]['row'][1] or not CONFIG[latestKey]['row'][0]): numLines=1
+			else: numLines=CONFIG[latestKey]['row'][1]-CONFIG[latestKey]['row'][0]
+			if (not CONFIG[latestKey]['column'][1] or not CONFIG[latestKey]['column'][0]): width=1
+			else: width=CONFIG[latestKey]['column'][1]-CONFIG[latestKey]['column'][0]
+			latest_text_instances=page.searchFor(latestKey)
+			if (page.searchFor(nextKey)):
+				next_inst=page.searchFor(nextKey)[0]
+				if (latest_text_instances):
+					for inst in latest_text_instances:
+						if (inst[3]<next_inst[1]):
+							x0=inst[0]
+							y0=(inst[3]+targetSize*numLines)
+							if (CONFIG[latestKey]['row'][0]==CONFIG[key]['row'][0]): 
+								y0=inst[1]
+								x0+=width*(targetSize-5)
+							else: x0=startColumn
+							x1=x0+len(key)*targetSize*0.7
+							y1=y0+targetSize*1.4
+							rect=fitz.Rect(x0,y0,x1,y1)
+							highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize-2, fontname="helv", color=(1, 0, 0), rotate=0)
+				else:
+					x0=next_inst[0]
+					y0=(next_inst[1]-targetSize)
+					if (nextKey in CONFIG):
+						if (CONFIG[nextKey]['row'][0]==CONFIG[key]['row'][0]): 
+							y0=next_inst[1]
 							x0+=width*(targetSize-5)
 						else: x0=startColumn
-						x1=x0+len(key)*targetSize*0.7
-						y1=y0+targetSize*1.4
-						rect=fitz.Rect(x0,y0,x1,y1)
-						highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize-2, fontname="helv", color=(1, 0, 0), rotate=0)
-			else:
-				x0=next_inst[0]
-				y0=(next_inst[1]-targetSize)
-				if (nextKey in CONFIG):
-					if (CONFIG[nextKey]['row'][0]==CONFIG[key]['row'][0]): 
-						y0=next_inst[1]
-						x0+=width*(targetSize-5)
-					else: x0=startColumn
-				x1=x0+len(key)*targetSize*0.7
-				y1=y0+targetSize*1.4
-				rect=fitz.Rect(x0,y0,x1,y1)
-				highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize-2, fontname="helv", color=(1, 0, 0), rotate=0)
-			# print(rect)
+					x1=x0+len(key)*targetSize*0.7
+					y1=y0+targetSize*1.4
+					rect=fitz.Rect(x0,y0,x1,y1)
+					highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize-2, fontname="helv", color=(1, 0, 0), rotate=0)
 	doc.save(modifiedFile,garbage=4,deflate=True,clean=False)
 	copyfile(modifiedFile,sourceFile)
 
@@ -201,7 +240,7 @@ def drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG):
 	doc.save(modifiedFile,garbage=4, deflate=True, clean=False)
 	copyfile(modifiedFile,sourceFile)
 
-def triggerWarning(path,file,template,configString,s,CONFIG,lineList):
+def triggerWarning(path,file,template,configString,s,CONFIG,lineList,ans):
 	# Find missing keywords
 	missingKws=[key for key in configString if key not in s]
 
@@ -233,7 +272,7 @@ def triggerWarning(path,file,template,configString,s,CONFIG,lineList):
 	copyfile(file,sourceFile)
 	if (len(missingKws)):
 		for key in missingKws:
-			drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG)
+			drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG,ans)
 	if (len(mishandledKws)):
 		count={}
 		for key in mishandledKws: count[key]=0
@@ -251,7 +290,13 @@ def createListOfStringLineList(CONFIG,lineList,configString):
 	ansList=[[configString[0]]]
 	for key in CONFIG: checked[key]=0
 	checked[configString[0]]=1
-
+	aliasDict={}
+	for key in CONFIG:
+		aliasDict[key]=[]
+		if ('alias' in CONFIG[key]):
+			for alias in CONFIG[key]['alias']:
+				aliasName=CONFIG[key]['alias'][alias]['name']
+				aliasDict[key].append(aliasName)
 	for i in range(l):
 		posDict={}
 		posList=[]
@@ -260,6 +305,12 @@ def createListOfStringLineList(CONFIG,lineList,configString):
 			if (pos!=-1): 
 				posDict[key]=pos
 				posList.append(key)
+			for alias in aliasDict[key]:
+				pos=lineList[i].find(alias)
+				if (pos!=-1):
+					posDict[key]=pos
+					posList.append(key)
+					break
 		posDict=dict(sorted(posDict.items(),key=lambda k:k[1]))
 		for key in posDict: 
 			if not (checked[key]):
@@ -270,7 +321,7 @@ def createListOfStringLineList(CONFIG,lineList,configString):
 				for ans in ansList:
 					numWords=len(ansList[0])
 					tmpConfig=configString[:numWords]
-					tmpDis=getEditDistance(ans,tmpConfig)
+					tmpDis=getEditDistance(ans,tmpConfig,aliasDict)
 					if (tmpDis<minDis):
 						minDis=tmpDis
 						chosenAns=ans
@@ -278,20 +329,20 @@ def createListOfStringLineList(CONFIG,lineList,configString):
 				tmp.remove(key)
 				tmp.append(key)
 				ansList.append(tmp)
-	return ansList
+	return ansList,aliasDict
 
 def findTemplateBetaVersion(path,file,jsonDir):
 	jsonFiles=glob.glob(jsonDir)
 	minDistance=100000
 	for jsonFile in jsonFiles:
-		CONFIG,HF_CONFIG=initCONFIG(jsonFile)
+		CONFIG,HF_CONFIG=initCONFIG(jsonFile) # HF_CONFIG for fun
 		lineList=preProcessPdf(file)
 		lineList=fixScript(lineList)
 		for key in CONFIG: key=fixSpaceColonString(key)
 		configString=createStringList(CONFIG)
-		sList=createListOfStringLineList(CONFIG,lineList,configString)
+		sList,aliasDict=createListOfStringLineList(CONFIG,lineList,configString)
 		for s in sList:
-			dis=getDamerauDistance(configString,s)
+			dis=getDamerauDistance(configString,s,aliasDict)
 			if (minDistance>dis): 
 				minDistance=dis
 				ans=jsonFile[9:-5]
@@ -300,7 +351,7 @@ def findTemplateBetaVersion(path,file,jsonDir):
 				targetCONFIG=CONFIG
 	if (minDistance>5): return -1,-1
 	if (minDistance!=0): 	
-		triggerWarning(path,file,ans,targetConfigString,targetS,targetCONFIG,lineList)
+		triggerWarning(path,file,ans,targetConfigString,targetS,targetCONFIG,lineList,ans)
 	return ans,minDistance
 
 def endUserSolve(resultFile,path,matchingFolder,jsonDir):

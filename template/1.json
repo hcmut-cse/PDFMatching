@@ -107,9 +107,9 @@
                     "left": "Notes:",
                     "right": -1
                 },
-                "synonyms":
+                "alias":
                 {
-                    "synonym_0":
+                    "alias_0":
                     {
                         "name": "Please note",
                         "column": [13,null],
