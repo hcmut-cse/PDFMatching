@@ -20,6 +20,13 @@
                     "bottom": "NOTIFY",
                     "left": "CNEE",
                     "right": -1
+                },
+                "alias":
+                {
+                    "alias_0":
+                    {
+                        "name": "CNNE"
+                    }
                 }
             },
             "NOTIFY": {
@@ -89,7 +96,7 @@
                     "right": -1
                 }
             },
-            "CONT/SEAL.": {
+            "CONT/SEAL": {
                 "row": [12, 13],
                 "column": [13, null],
                 "isFlex": 1,

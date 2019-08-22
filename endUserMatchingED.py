@@ -60,8 +60,8 @@ def createStringList(CONFIG):
 
 def investigateAnalogy(a,b,aliasDict):
 	if (a==b): return 1
-	if (a in aliasDict[b]): return 1
-	if (b in aliasDict[a]): return 1
+	if (a.lower() in aliasDict[b]): return 1
+	if (b.lower() in aliasDict[a]): return 1
 	return 0
 
 def getEditDistance(s0,s1,aliasDict):
@@ -108,7 +108,10 @@ def drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG,ans)
 	l=len(configString)
 	# Search for first column in pdf
 	tmpPage=doc[0]
-	startColumn=tmpPage.searchFor(s[0])[0][0]
+	for tmpKey in s:
+		if (len(tmpPage.searchFor(s[0]))): 
+			startColumn=tmpPage.searchFor(s[0])[0][0]
+			break
 	index=0
 	for page in doc:
 		noApproximation=0
@@ -137,9 +140,9 @@ def drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG,ans)
 			x0=targetPos[0]	
 			y0=targetPos[1]	
 			x1=targetPos[2]+len(key)*4	
-			y1=targetPos[3]+targetSize/1.5
+			y1=targetPos[3]+10
 			rect=fitz.Rect(x0,y0,x1,y1)
-			highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize, fontname="helv", color=(1, 0, 0), rotate=0)	
+			highlight=page.addFreetextAnnot(rect,key,fontsize=12, fontname="helv", color=(1, 0, 0), rotate=0)	
 			break
 		index+=1
 
@@ -262,6 +265,7 @@ def triggerWarning(path,file,template,configString,s,CONFIG,lineList,ans):
 				mishandledKws.append(checkedKey)
 				checked[key]=checked[checkedKey]=1
 				break
+	print(missingKws)
 	lenLineList=len(lineList)
 	if (not (len(missingKws) or len(mishandledKws))): return
 	startFilenamePos=len(path)
@@ -349,6 +353,7 @@ def findTemplateBetaVersion(path,file,jsonDir):
 				targetConfigString=configString
 				targetS=s
 				targetCONFIG=CONFIG
+	print(file)
 	if (minDistance>5): return -1,-1
 	if (minDistance!=0): 	
 		triggerWarning(path,file,ans,targetConfigString,targetS,targetCONFIG,lineList,ans)

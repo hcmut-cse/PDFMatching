@@ -64,6 +64,13 @@
                 "bottom": "ADD:",
                 "left": "Shipper:",
                 "right": -1
+            },
+            "alias":
+            {
+            	"alias_0":
+            	{
+            		"name": "SHIPPER"
+            	}
             }
         },
         "ADD": {
@@ -86,6 +93,13 @@
                 "bottom": "Add:",
                 "left": "Consignee:",
                 "right": -1
+            },
+            "alias":
+            {
+            	"alias_0":
+            	{
+            		"name": "CONSIGNEE"
+            	}
             }
         },
         "Add": {
@@ -130,6 +144,13 @@
                 "bottom": "Add:",
                 "left": "Notify Party:",
                 "right": -1
+            },
+            "alias":
+            {
+            	"alias_0":
+            	{
+            		"name": "NOTIFY"
+            	}
             }
         },
         "OCEAN VESSEL": {
