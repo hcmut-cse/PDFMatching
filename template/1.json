@@ -103,7 +103,7 @@
                     {
                         "name": "Consignee"
                     },
-                    "alias_1":
+                     "alias_1":
                     {
                         "name": "CONSIGNEE"
                     }
@@ -143,14 +143,7 @@
                 {
                     "alias_0":
                     {
-                        "name": "Please note",
-                        "column": [13,null],
-                        "endObject": {
-                            "top": "same_left",
-                            "bottom": "Thanks",
-                            "left": "Please note:",
-                            "right": -1
-                        }
+                        "name": "Please note"
                     }
                 }
 

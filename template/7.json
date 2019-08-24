@@ -25,6 +25,13 @@
 				"bottom": "Consignee",
 				"left": -1,
 				"right": -1
+			},
+			"alias":
+			{
+				"alias_0": 
+				{
+					"name": "SHIPPER"
+				}
 			}
 		},
 
@@ -41,12 +48,12 @@
 				"right": -1
 			},
 			"alias":
-            {
-                "alias_0":
-                {
-                    "name": "CONSIGNEE"
-                }
-            }
+			{
+				"alias_0":
+				{
+					"name": "CONSIGNEE"
+				}
+			}
 		},
 
 		"Notify":
@@ -196,7 +203,7 @@
 			},
 			"alias":
 			{
-				"alias_0":
+				"alias_0": 
 				{
 					"name": "Gross weight"
 				}

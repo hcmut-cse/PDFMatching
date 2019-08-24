@@ -344,6 +344,13 @@
 				"bottom": "TOTAL",
 				"left": -1,
 				"right": "G.W(MTS)"
+			},
+			"alias":
+			{
+				"alias_0": 
+				{
+					"name": "N.W(KGS)"
+				}
 			}
 		},
 
@@ -358,6 +365,13 @@
 				"bottom": "TOTAL",
 				"left": -1,
 				"right": -1
+			},
+			"alias":
+			{
+				"alias_0": 
+				{
+					"name": "G.W(KGS)"
+				}
 			}
 		},
 

@@ -1,0 +1,19 @@
+##################################################
+RANDOM TESTING
+------------------------------------
+submit+si+to+ONE.pdf 1
+Warning: submit+si+to+ONE.pdf doesn't fully match the template
+------------------------------------
+------------------------------------
+SGNV49126500+MAIL.pdf 1
+Warning: SGNV49126500+MAIL.pdf doesn't fully match the template
+------------------------------------
+------------------------------------
+SGNV47444600.pdf 1
+Warning: SGNV47444600.pdf doesn't fully match the template
+------------------------------------
+------------------------------------
+HPHV04466900.pdf 1
+Warning: HPHV04466900.pdf doesn't fully match the template
+------------------------------------
+##################################################

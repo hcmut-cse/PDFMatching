@@ -235,6 +235,7 @@ def drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG):
 								if (tmpPos[2]<inst[0]):
 									trueInst=0
 									break
+									
 			if (trueInst):
 				highlight=page.addHighlightAnnot(inst)
 				highlight.setColors({"stroke": (0,1,0)})
@@ -265,7 +266,6 @@ def triggerWarning(path,file,template,configString,s,CONFIG,lineList,ans):
 				mishandledKws.append(checkedKey)
 				checked[key]=checked[checkedKey]=1
 				break
-	print(missingKws)
 	lenLineList=len(lineList)
 	if (not (len(missingKws) or len(mishandledKws))): return
 	startFilenamePos=len(path)
@@ -288,6 +288,12 @@ def triggerWarning(path,file,template,configString,s,CONFIG,lineList,ans):
 		for key in mishandledKws: 
 			drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG)
 
+def lowerFirstKeyInNextWords(s):
+	tmp=s[1:]
+	tmp=tmp.lower()
+	s=s[0]+tmp
+	return s
+
 def createListOfStringLineList(CONFIG,lineList,configString):
 	l=len(lineList)
 	checked={}
@@ -306,7 +312,7 @@ def createListOfStringLineList(CONFIG,lineList,configString):
 		posList=[]
 		for key in CONFIG:
 			pos=lineList[i].find(key)
-			if (pos!=-1): 
+			if (pos!=-1):
 				posDict[key]=pos
 				posList.append(key)
 			for alias in aliasDict[key]:
@@ -347,12 +353,23 @@ def findTemplateBetaVersion(path,file,jsonDir):
 		sList,aliasDict=createListOfStringLineList(CONFIG,lineList,configString)
 		for s in sList:
 			dis=getDamerauDistance(configString,s,aliasDict)
+
+			# Testing===========================================================================
+			print('=========================================================================')
+			print('Standard string:',configString)
+			print('Target S:',s)
+			print('Distance:',dis)
+			print('Template:',jsonFile[9:-5])
+			print('=========================================================================')
+			# Testing==========================================================================
+
 			if (minDistance>dis): 
 				minDistance=dis
 				ans=jsonFile[9:-5]
 				targetConfigString=configString
 				targetS=s
 				targetCONFIG=CONFIG
+		
 	print(file)
 	if (minDistance>5): return -1,-1
 	if (minDistance!=0): 	
