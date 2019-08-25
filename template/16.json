@@ -1,6 +1,6 @@
 [
     {
-    		"Date :": {
+    		"Date": {
                 "row": [0, 1],
                 "column": [171, null],
                 "isFlex": 1,
@@ -22,7 +22,7 @@
                     "right": "Attn :"
                 }
             },
-            "Attn :": {
+            "Attn": {
                 "row": [1, 2],
                 "column": [171, null],
                 "isFlex": 1,
@@ -256,8 +256,64 @@
                     "right": "Final destination"
                 }
             },
-            
-            
+            "Description of goods": {
+                "row": [34, 43],
+                "column": [86, 154],
+                "isFlex": 1,
+                "endObject": {
+                    "top": "HS CODE/ HTS/ NCM:",
+                    "bottom": "TOTAL:",
+                    "left": "Shipping Marks",
+                    "right": "Packages"
+                },
+                "alias":
+                {
+                    "alias_0":
+                    {
+                        "name": "HS CODE/ HTS/ NCM"
+                    }
+                }
+            },
+            "No/Kind of": {
+                "row": [34, 43],
+                "column": [154, 162],
+                "isFlex": 1,
+                "endObject": {
+                    "top": "Packages",
+                    "bottom": "TOTAL:",
+                    "left": "HS CODE/ HTS/ NCM:",
+                    "right": "(Kgs)"
+                },
+                "alias":
+                {
+                    "alias_0": 
+                    {
+                        "name":"Packages"
+                    }
+                }
+            },
+            "Gross Weight": {
+                "row": [34, 43],
+                "column": [162, 183],
+                "isFlex": 1,
+                "endObject": {
+                    "top": "(Kgs)",
+                    "bottom": "TOTAL:",
+                    "left": "Packages",
+                    "right": "(Cbm)"
+                }
+            },
+             "Measurement": {
+                "row": [34, 43],
+                "column": [183, null],
+                "isFlex": 1,
+                "endObject": {
+                    "top": "(Cbm)",
+                    "bottom": "TOTAL:",
+                    "left": "(Kgs)",
+                    "right": -1
+                }
+            },
             "Container/Seal No": {
                 "row": [34, 43],
                 "column": [0, 32],
@@ -291,50 +347,10 @@
                     "right": "HS CODE/ HTS/ NCM:"
                 }
             },
-            "HS CODE/ HTS/ NCM:": {
-                "row": [34, 43],
-                "column": [86, 154],
-                "isFlex": 1,
-                "endObject": {
-                    "top": "HS CODE/ HTS/ NCM:",
-                    "bottom": "TOTAL:",
-                    "left": "Shipping Marks",
-                    "right": "Packages"
-                }
-            },
-            "Packages": {
-                "row": [34, 43],
-                "column": [154, 162],
-                "isFlex": 1,
-                "endObject": {
-                    "top": "Packages",
-                    "bottom": "TOTAL:",
-                    "left": "HS CODE/ HTS/ NCM:",
-                    "right": "(Kgs)"
-                }
-            },
-            "(Kgs)": {
-                "row": [34, 43],
-                "column": [162, 183],
-                "isFlex": 1,
-                "endObject": {
-                    "top": "(Kgs)",
-                    "bottom": "TOTAL:",
-                    "left": "Packages",
-                    "right": "(Cbm)"
-                }
-            },
-            "(Cbm)": {
-                "row": [34, 43],
-                "column": [183, null],
-                "isFlex": 1,
-                "endObject": {
-                    "top": "(Cbm)",
-                    "bottom": "TOTAL:",
-                    "left": "(Kgs)",
-                    "right": -1
-                }
-            },
+            
+            
+            
+           
             "TOTAL:": {
                 "row": [34, 43],
                 "column": [136, null],

@@ -1,6 +1,6 @@
 [
 	{
-		"Shipper/Exporter":
+		"Shipper/Exporter (complex name and address)":
 		{
 			"row": [4,10],
 			"column": [0,44],
@@ -42,7 +42,7 @@
 			}
 		},
 
-		"Consignee":
+		"Consignee (complex name and address)":
 		{
 			"row": [11,15],
 			"column": [0,44],
@@ -84,7 +84,7 @@
 			}
 		},
 
-		"Notify Paty":
+		"Notify Paty (complex name and address)":
 		{
 			"row": [16,21],
 			"column": [0,44],
@@ -221,6 +221,13 @@
 				"bottom": "CONT NO",
 				"left": -1,
 				"right": "No. of Containes"
+			},
+			"alias":
+			{
+				"alias_0":
+				{
+					"name": "Marks and Numbers"
+				}
 			}
 		},
 

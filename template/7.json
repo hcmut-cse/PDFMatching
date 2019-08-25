@@ -73,6 +73,10 @@
                 "alias_0":
                 {
                     "name": "NOTIFY PARTY"
+                },
+                "alias_1":
+                {
+                	"name": "Notify Party"
                 }
             }
 		},

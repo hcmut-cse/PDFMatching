@@ -1,5 +1,5 @@
 ##################################################
-RANDOM TESTING
+MATCHING
 ------------------------------------
 submit+si+to+ONE.pdf 1
 Warning: submit+si+to+ONE.pdf doesn't fully match the template
@@ -26,6 +26,7 @@ Warning: SGNV20297300+-+KLLAX+-+1903+004.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 ONEYSGNV44586300.pdf 8
+Warning: ONEYSGNV44586300.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SE19050065.pdf 4
@@ -36,6 +37,7 @@ Warning: SI+FOR+BOOKING+SGNV57592400.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 ONEYSGNV59029800.pdf 8
+Warning: ONEYSGNV59029800.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SI+BOOKING+HANV11192800.pdf 4
@@ -49,8 +51,7 @@ SGNV49126500+MAIL.pdf 1
 Warning: SGNV49126500+MAIL.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
-SGNV62905500.pdf 1
-Warning: SGNV62905500.pdf doesn't fully match the template
+SGNV62905500.pdf unknown template
 ------------------------------------
 ------------------------------------
 SI+149.pdf 3
@@ -78,6 +79,7 @@ Warning: ONEYSGNV32972600+(SEAWAY).pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 ONEYSGNV46883500.pdf 8
+Warning: ONEYSGNV46883500.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SI-CANADA_+TOROMTO-SAMAR.pdf 2_6_12
@@ -85,6 +87,7 @@ Warning: SI-CANADA_+TOROMTO-SAMAR.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SGNV65274700.pdf 17
+Warning: SGNV65274700.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SI+BOOKING+ONEYHANV10851900.pdf 4
@@ -107,6 +110,7 @@ Warning: SI+153.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SGNV54912400.pdf 17
+Warning: SGNV54912400.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SGNV49127600.pdf 1
@@ -121,14 +125,15 @@ SGNV60900500(+HBL_+YYZ1905142).pdf 2_6_12
 Warning: SGNV60900500(+HBL_+YYZ1905142).pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
-SGNV47444600.pdf 1
-Warning: SGNV47444600.pdf doesn't fully match the template
+SGNV47444600.pdf unknown template
 ------------------------------------
 ------------------------------------
 SGNV47033700.pdf 8
+Warning: SGNV47033700.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SGNV54411500.pdf 17
+Warning: SGNV54411500.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 itl_rptmblinstruction.pdf 14
@@ -136,13 +141,13 @@ Warning: itl_rptmblinstruction.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 ONEYSGNV31545800.pdf 8
+Warning: ONEYSGNV31545800.pdf doesn't fully match the template
 ------------------------------------
 ------------------------------------
 SI-SGNV22165600.pdf 9
 ------------------------------------
 ------------------------------------
-HPHV04466900.pdf 1
-Warning: HPHV04466900.pdf doesn't fully match the template
+HPHV04466900.pdf unknown template
 ------------------------------------
 ------------------------------------
 DADV01696700.pdf 2_6_12
