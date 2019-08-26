@@ -22,7 +22,6 @@ from bs4 import BeautifulSoup
 def triggerWarning(inputPath,resultPath,file,template,configString,s,CONFIG,lineList,ans,standardFolder,CURR_KW,aliasDict,newKwList):
 	# Find missing keywords
 	missingKws=[key for key in configString if key not in s]
-
 	# Examine if the order of keywords is caused damaged
 	keywordRank={}
 	mishandledKws=[]
@@ -34,11 +33,11 @@ def triggerWarning(inputPath,resultPath,file,template,configString,s,CONFIG,line
 	for key in s:
 		if (checked[key]): continue
 		i=s.index(key)
-		for j in range(i+1,l-1):
+		for j in range(i+1,l):
 			checkedKey=s[j]
 			if (keywordRank[key]>keywordRank[checkedKey]):
-				mishandledKws.append(key)
-				mishandledKws.append(checkedKey)
+				if key not in mishandledKws: mishandledKws.append(key)
+				if checkedKey not in mishandledKws: mishandledKws.append(checkedKey)
 				checked[key]=checked[checkedKey]=1
 				break
 	lenLineList=len(lineList)
@@ -50,8 +49,15 @@ def triggerWarning(inputPath,resultPath,file,template,configString,s,CONFIG,line
 	# 		if key in aliasDict[tmpKey]: 
 	# 			newKwList.remove(key)
 	# 			break
-
+	# print(missingKws)
+	# print(mishandledKws)
 	if (not (len(missingKws) or len(mishandledKws) or len(newKwList))): return
+
+
+	doc=fitz.open(file)
+	page=doc[0]
+	if (not len(page.searchFor(configString[0]))): missingKws.append(configString[0])
+
 	startFilenamePos=len(inputPath)
 	modifiedFile=resultPath+'/warning'+file[startFilenamePos:]
 	copyfile(file,modifiedFile)
@@ -87,7 +93,7 @@ def findTemplateBetaVersion(inputPath,resultPath,file,jsonDir,standardFolder,CUR
 		configString=createStringList(CONFIG)
 		sList,aliasDict=createListOfStringLineList(CONFIG,lineList,configString)
 		# New keys
-		newKwList=generateListNewKws(file,jsonFile[starPos:-5],CURR_KW)
+		newKwList=generateListNewKws(file,jsonFile[starPos:-5],CURR_KW,jsonDir)
 		for key in newKwList:
 			for tmpKey in aliasDict:
 				found=0

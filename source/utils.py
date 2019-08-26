@@ -292,8 +292,13 @@ def createListOfStringLineList(CONFIG,lineList,configString):
 		for key in CONFIG:
 			pos=lineList[i].find(key)
 			if (pos!=-1):
-				posDict[key]=pos
-				posList.append(key)
+				trueKey=1
+				if (pos+len(key)<len(lineList[i])):
+					if (lineList[i][pos+len(key)]<='Z' and lineList[i][pos+len(key)]>='A' and lineList[i][pos+len(key)-1]<='Z' and lineList[i][pos+len(key)-1]>='A'): trueKey=0
+					if (lineList[i][pos+len(key)]<='z' and lineList[i][pos+len(key)]>='a' and lineList[i][pos+len(key)-1]<='z' and lineList[i][pos+len(key)-1]>='a'): trueKey=0
+				if (trueKey):
+					posDict[key]=pos
+					posList.append(key)
 			for alias in aliasDict[key]:
 				pos=lineList[i].find(alias)
 				if (pos!=-1):
@@ -426,12 +431,18 @@ def detectNotInData(fullPdf, listCheck, CURR_KW, newKw,listPdf):
 											newKw.append(keyword)
 	return newKw
 
-def generateListNewKws(file,template,CURR_KW):
+def generateListNewKws(file,template,CURR_KW,jsonDir):
 	newKw=[]
 	listPdf = []
 	listCheck = []
 
-	PDF = ["1","2_6_12","3","4","5","7","8","9","10","11","16","17"]
+	templateFiles=glob.glob(jsonDir)
+	starPos=jsonDir.find('*')
+	PDF=[]
+	for templateFile in templateFiles:
+		jsonPos=templateFile.find('.json')
+		PDF.append(templateFile[starPos:jsonPos])
+
 	fullPdf=preProcessPdf(file)
 	# Data of test template
 	listCheck = currDataTemp(template, listCheck)
