@@ -41,7 +41,8 @@ def triggerWarning(inputPath,resultPath,file,template,configString,s,CONFIG,line
 				checked[key]=checked[checkedKey]=1
 				break
 	lenLineList=len(lineList)
-
+	# import pdb
+	# pdb.set_trace()
 	# # New keys
 	# newKwList=generateListNewKws(file,ans,CURR_KW)
 	# for key in newKwList:
@@ -52,6 +53,7 @@ def triggerWarning(inputPath,resultPath,file,template,configString,s,CONFIG,line
 	# print(missingKws)
 	# print(mishandledKws)
 	if (not (len(missingKws) or len(mishandledKws) or len(newKwList))): return
+	# if (not (len(missingKws) or len(mishandledKws))): return
 
 
 	doc=fitz.open(file)
@@ -71,12 +73,14 @@ def triggerWarning(inputPath,resultPath,file,template,configString,s,CONFIG,line
 		count={}
 		for key in mishandledKws: count[key]=0
 
-		for i in range(lenLineList):
-			for key in mishandledKws:
-				if (lineList[i].find(key)!=-1): count[key]+=1
+		# for i in range(lenLineList):
+		# 	for key in mishandledKws:
+		# 		if (lineList[i].find(key)!=-1): count[key]+=1
+		for page in doc:
+			for key in mishandledKws: count[key]+=len(page.searchFor(key))
 
 		for key in mishandledKws: 
-			drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG)
+			drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG,aliasDict)
 	if (len(newKwList)):
 		for key in newKwList: 
 			drawTextboxNewKws(key,sourceFile,modifiedFile,CONFIG)
@@ -115,7 +119,6 @@ def findTemplateBetaVersion(inputPath,resultPath,file,jsonDir,standardFolder,CUR
 			# print('Template:',jsonFile[starPos:-5])
 			# print('=========================================================================')
 			# Testing==========================================================================
-
 			if (minDistance>dis): 
 				minDistance=dis
 				ans=jsonFile[starPos:-5]
@@ -131,8 +134,12 @@ def findTemplateBetaVersion(inputPath,resultPath,file,jsonDir,standardFolder,CUR
 				print('Target S:',s)
 				print('Distance:',minDistance)
 				print('Template:',jsonFile[starPos:-5])
+				print('New keywords:',newKwList)
 				print('=========================================================================')
+				if (minDistance==0 or minDistance>15): break
 				# Testing==========================================================================
+		if (minDistance==0): break
+
 	# print(file)
 	if (minDistance>8): return -1,-1
 	if (minDistance!=0): 	
@@ -141,6 +148,7 @@ def findTemplateBetaVersion(inputPath,resultPath,file,jsonDir,standardFolder,CUR
 
 def endUserSolve(resultFile,inputPath,resultPath,matchingFolder,jsonDir,standardFolder):
 	matchingFiles=glob.glob(matchingFolder)
+	matchingFiles.sort()
 	CURR_KW={}
 	for file in matchingFiles:
 		decorationPrint(resultFile,'-',36)

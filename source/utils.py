@@ -213,7 +213,7 @@ def drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG,ans,
 							x1=x0+len(key)*targetSize*0.7
 							y1=y0+targetSize*1.4
 							rect=fitz.Rect(x0,y0,x1,y1)
-							highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize-2, fontname="helv", color=(1, 0, 0), rotate=0)
+							highlight=page.addFreetextAnnot(rect,key,fontsize=targetSize-2, fontname="helv", color=(0, 1, 0), rotate=0)
 				else:
 					x0=next_inst[0]
 					y0=(next_inst[1]-targetSize)
@@ -229,10 +229,14 @@ def drawTextboxMissingKws(sourceFile,modifiedFile,key,configString,s,CONFIG,ans,
 	doc.save(modifiedFile,garbage=4,deflate=True,clean=False)
 	copyfile(modifiedFile,sourceFile)
 
-def drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG):
+def drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG,aliasDict):
 	doc=fitz.open(sourceFile)
 	for page in doc:
 		text_instances=page.searchFor(key)
+		if (not len(text_instances)):
+			for tmpKey in aliasDict[key]:
+				text_instances=page.searchFor(tmpKey)
+				if (len(text_instances)): break
 		for inst in text_instances: 
 			trueInst=1
 			if (count[key]>1):
@@ -252,6 +256,7 @@ def drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG):
 								if (tmpPos[3]<inst[1]):
 									trueInst=0
 									break
+							else: trueInst=0
 						elif (margin=='left'):
 							if (page.searchFor(tmpKey)):
 								tmpPos=page.searchFor(tmpKey)[0]
@@ -269,7 +274,7 @@ def drawTextboxMishandled(key,sourceFile,modifiedFile,count,CONFIG):
 				highlight=page.addHighlightAnnot(inst)
 				highlight.setColors({"stroke": (0,1,0)})
 				break
-					
+
 	doc.save(modifiedFile,garbage=4, deflate=True, clean=False)
 	copyfile(modifiedFile,sourceFile)
 
@@ -467,3 +472,4 @@ def drawTextboxNewKws(key,sourceFile,modifiedFile,CONFIG):
 					
 	doc.save(modifiedFile,garbage=4, deflate=True, clean=False)
 	copyfile(modifiedFile,sourceFile)
+

@@ -97,6 +97,13 @@
                 "bottom": "Phone:",
                 "left": "Add:",
                 "right": -1
+            },
+            "alias":
+            {
+                "alias_0":
+                {
+                    "name": "ADD"
+                }
             }
         },
         "Phone": {
@@ -108,6 +115,13 @@
                 "bottom": "Email:",
                 "left": "Phone:",
                 "right": -1
+            },
+            "alias":
+            {
+                "alias_0":
+                {
+                    "name": "Tel Nos"
+                }
             }
         },
         "Email": {
@@ -119,6 +133,13 @@
                 "bottom": "Notify Party:",
                 "left": "Email:",
                 "right": -1
+            },
+            "alias":
+            {
+                "alias_0":
+                {
+                    "name": "EMAIL"
+                }
             }
         },
         "Notify Party": {
@@ -136,7 +157,11 @@
             	"alias_0":
             	{
             		"name": "NOTIFY"
-            	}
+            	},
+                "alias_1":
+                {
+                    "name": "NOTIFY PARTY"
+                }
             }
         },
         "OCEAN VESSEL": {
