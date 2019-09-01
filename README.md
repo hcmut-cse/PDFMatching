@@ -9,3 +9,5 @@ Step 2: Execute endUserMatchingED.py in source folder
 Step 3: Examine the results in result.txt and the folder 'Warning' inside result
 
 ## Attention: users shall not forget to add standard files, otherwise the warnings will be incorrect 
+
+## Notes: if users find a familar key recognized as a new key, maybe you wanna add it as an alias
